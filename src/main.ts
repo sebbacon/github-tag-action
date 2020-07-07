@@ -8,7 +8,7 @@ import { generateNotes } from "@semantic-release/release-notes-generator";
 const HASH_SEPARATOR = "|commit-hash:";
 const SEPARATOR = "==============================================";
 
-async function exec(command: string) {
+async function exec(command: string, args: Array<string>=[]) {
   let stdout = "";
   let stderr = "";
 
@@ -24,7 +24,7 @@ async function exec(command: string) {
       },
     };
 
-    const code = await _exec(command, undefined, options);
+    const code = await _exec(command, args, options);
 
     return {
       code,
@@ -78,7 +78,7 @@ async function run() {
       tag = (await exec(`git describe --tags ${previousTagSha}`)).stdout.trim();
       logs = (
         await exec(
-          "git" ["log", `${tag}..HEAD`, `--pretty=format:'%s%n%b${HASH_SEPARATOR}%h${SEPARATOR}'`, "--abbrev-commit"]
+          "git", ["log", `${tag}..HEAD`, `--pretty=format:'%s%n%b${HASH_SEPARATOR}%h${SEPARATOR}'`, "--abbrev-commit"]
         )
       ).stdout.trim();
 

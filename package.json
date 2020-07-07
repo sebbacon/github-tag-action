@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mathieudutour/github-tag-action.git"
+    "url": "git+https://github.com/sebbacon/github-tag-action.git"
   },
   "keywords": [
     "actions",
