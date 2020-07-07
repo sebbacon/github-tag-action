@@ -98,7 +98,8 @@ async function run() {
       ).stdout.trim();
       core.setOutput("previous_tag", tag);
     }
-
+    console.log("Logs:")
+    console.log(logs);
     // for some reason the commits start and end with a `'` on the CI so we ignore it
     const commits = logs
       .split(SEPARATOR)
@@ -114,6 +115,8 @@ async function run() {
         };
       })
       .filter((x) => !!x.message);
+    console.log("Commits:")
+    console.log(commits);
     const bump = await analyzeCommits(
       {},
       { commits, logger: { log: console.info.bind(console) } }
