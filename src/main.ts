@@ -78,7 +78,7 @@ async function run() {
       tag = (await exec(`git describe --tags ${previousTagSha}`)).stdout.trim();
       logs = (
         await exec(
-          `git log ${tag}..HEAD --pretty=format:'%s%n%b${HASH_SEPARATOR}%h${SEPARATOR}' --abbrev-commit`
+          "git" ["log", `${tag}..HEAD`, `--pretty=format:'%s%n%b${HASH_SEPARATOR}%h${SEPARATOR}'`, "--abbrev-commit"]
         )
       ).stdout.trim();
 
