@@ -17,9 +17,13 @@ async function exec(command: string, args: Array<string>=[]) {
       listeners: {
         stdout: (data: Buffer) => {
           stdout += data.toString();
+          console.log("Adding to stdout");
+          console.log(data.toString());
         },
         stderr: (data: Buffer) => {
           stderr += data.toString();
+          console.log("Adding to stderr");
+          console.log(data.toString());
         },
       },
     };
@@ -77,6 +81,7 @@ async function run() {
       ).stdout.trim();
       tag = (await exec(`git describe --tags ${previousTagSha}`)).stdout.trim();
       logs = (
+        // so it's this - it's returning only the first line
         await exec(
           "git", ["log", `${tag}..HEAD`, `--pretty=format:'%s%n%b${HASH_SEPARATOR}%h${SEPARATOR}'`, "--abbrev-commit"]
         )
